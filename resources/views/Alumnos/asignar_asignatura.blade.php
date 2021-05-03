@@ -56,6 +56,7 @@
     </tr>
   @endforeach
 </table>
+</div>
     <script>
      class asignar_asignatura
      {
@@ -92,7 +93,7 @@
           //alert(JSON.stringify(class_asign));
           let datos_enviar=JSON.stringify(class_asign);
             $.ajax({
-                 url:"/blog/public/Asignatura/store",
+                 url:"/gestion_alumnos/public/Asignatura/store",
                  method:"POST",
                  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                  
@@ -117,7 +118,7 @@
 function listar_asignaturas()
 {
 let row="";
-    $.ajax({url:"/blog/public/Asignatura",
+    $.ajax({url:"/gestion_alumnos/public/Asignatura",
                     method:"GET",
                 data:{"_token":"{{ csrf_token() }}"},
             success:function(data)
@@ -165,7 +166,7 @@ $("#modal").modal();
 
    }
         </script>
-      </div>
+      
 </body>
 </html>
 

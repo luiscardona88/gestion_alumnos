@@ -15,7 +15,7 @@ class Menu extends Controller
     {
         //
 
-      return json_encode(array("Home"=>"Home","Inicio"=>"Inicio","Alumnos"=>"http://localhost/blog/public/Alumnos","Asignacion"=>"http://localhost/blog/public/Alumnos/asignar_asignaturas"));
+      return json_encode(array("Home"=>"Home","Inicio"=>"Inicio","Alumnos"=>"http://localhost/gestion_alumnos/public/Alumnos","Asignacion"=>"http://localhost/gestion_alumnos/public/Alumnos/asignar_asignaturas"));
 
     }
 
