@@ -19,9 +19,21 @@ class Alumnos extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct()
+     {
+        DB::listen(function($query)
+        {
+       // echo "<code>" . $query->sql."</code/>";
+        //echo "<code>" . $query->time."</code/>";
+        
+        });
+     }
     public function index()
     {
-         $datos=Alumnos_model::all();
+
+        
+         $datos=Alumnos_model::with("asignaturas")->get();
          $asignatura1 = new asignaturas_model();
          $asignatura1->nombre = "ItSolutionStuff.com";
          $asignatura1->fecha_registro=date("Y-m-d");
@@ -29,14 +41,7 @@ class Alumnos extends Controller
          $asignatura2 = new asignaturas_model();
          $asignatura2->nombre = "ItSolutionStuff.com 2";
          $asignatura2->fecha_registro=date("Y-m-d");
-        /*
-        foreach($datos as $d)
-        {
-
-            $d->asignaturas()->sync(1,["nombre"=>"LUIZ"]);
-
-        }
-         */
+       
          return view("Alumnos.index",["datos"=>$datos]);
     }
         
@@ -55,11 +60,8 @@ class Alumnos extends Controller
 
      }
     public function create()
-    {
-    
+    {   
         return view("Alumnos.create");
-
-
     }
 
     /**
@@ -86,26 +88,8 @@ class Alumnos extends Controller
 
     }
     public function store(AlumnosRequest $request)
-    {
-
-        //echo "el resultado es" . $request->nombre;
-        //
-        // dd($request->nombre);
-
-        Registro_model::create(["detalles"=>"index:".date("Y-m-d")]);
-
-        /*
-        $nombre=$request->nombre;
-        DB::transaction(function () use($nombre){
-
-            
-            Registro_model::create(["detalles"=>"index:".date("Y-m-d")]);
-
-            Alumnos_model::create(["nombre"=> $nombre,"estatus"=>0]);
-  
-          });
-*/
-          
+    {      
+        Registro_model::create(["detalles"=>"index:".date("Y-m-d")]);       
     }
 
     /**
@@ -128,12 +112,7 @@ class Alumnos extends Controller
      */
     public function edit($id)
     {
-        //echo "editar" .$id;
-        $datos=Alumnos_model::findOrfail($id);
-        // echo "el nombres" . $datos->nombre;
-        //return false;
-        //dd($datos);
-
+        $datos=Alumnos_model::findOrfail($id);      
         return view("Alumnos.edit",["datos"=>$datos]);
     }
 
@@ -147,20 +126,10 @@ class Alumnos extends Controller
     public function update(AlumnosRequest $request,Alumnos_model $alumno)
     {
         //
-        $alumnos_object=Alumnos_model::findOrfail($request->id);
-      //  echo "el id es" . $request->id;
-        // dd($request);
+        $alumnos_object=Alumnos_model::findOrfail($request->id);    
          $alumnos_object->update(array("nombre"=>$request->nombre));
          echo "OK";
-        // return back()->with("status","actualizado con exito");
-        //dd($alumnos_request);
-        //echo "entra";
-        //echo "el id del alumno es" .$alumnos_request["nombre"];
-        /*
-        $alumnos_object=Alumnos_model::findOrfail($id);
-        $alumnos_object->nombre="lalolanda";
-        Alumnos_model::update($alumnos_object);
-        */
+        
     }
     public function update2($id)
     {

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\asignaturas_model;
 use App\Models\Alumnos_model;
+use App\Models\Horarios_modelo;
+
 use Illuminate\Http\Request;
 
 class Asignatura extends Controller
@@ -16,9 +18,6 @@ class Asignatura extends Controller
     public function index()
     {
         $datos=asignaturas_model::all();
-        //$datos->pluck(["nombre"]);
-       //return response()->json($datos,200, [], JSON_UNESCAPED_UNICODE);
-
        return json_encode($datos);
         
     }
@@ -56,42 +55,8 @@ class Asignatura extends Controller
 
         }
        // return $array_syn;
-        $alumno->asignaturas()->sync($array_syn);
-        /*
-        return response('OK', 200)
-        ->header('Content-Type', 'text/plain');
-         */
-
+        $alumno->asignaturas()->sync($array_syn);       
         return json_encode(array("resultado"=>"OK"));
-        //return back()->with("status","agregado con exito");
-
-        //return $datos;
-        //return $request->all();
-        //dd(json_decode($request->getContent(), true));
-
-        //return $request->all();
-        //$datos= $request->input('data_asign');
-        //$datos=json_decode($datos);
-       // dd($datos[0]->asignatura_propiedad);
-        //$datos=$request->json();
-        
-       // dd(json_decode($request->getContent(), true));
-
-       //dd($request->input("_token"));
-       //return $request->all();
-       //return $request->all();
-       //$name = $request->input('data_asign');
-       //return $name;
-       // return $request->json()->all();
-       /*
-       $json = file_get_contents('php://input');
-        $data = json_decode($json,true);
-        dd($data);
-
-        */
-       // $datos=json_decode($request->asignar_asignatura);
-       
-        //dd($datos);
        
     }
 
@@ -138,5 +103,14 @@ class Asignatura extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function muestra_horarios(Request $request)
+    {
+      
+        $id_asignatura=$request->id_asignatura;
+        $datos=Horarios_modelo::where(["fecha_registro"=>now(),"id_asignatura"=>$id_asignatura])->get();
+        return json_encode($datos);
     }
 }

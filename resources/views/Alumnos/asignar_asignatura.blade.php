@@ -1,9 +1,11 @@
 <html>
-   
     <input type="hidden" name="id_alumno_temp" id="id_alumno_temp"/>
     @extends('master')
 <body>
   <div id="app">
+    <li v-for="(item,index) in lista_asignaturas" :key="index">
+      @{{ index }}
+    </li>
     <example-component> </example-component>
   @if (session("status"))
     <div class="alert alert-success">
@@ -26,7 +28,7 @@
                  <th> </th>
                  <th>Nombre </th>
              </thead>
-             <tbody>
+             <tbody id="table_body_asign"> <!--lista_asignaturas!-->             
              </tbody>
              </table>
             </div>
@@ -69,7 +71,6 @@
       }
        agrega_asignaturas(elemento)
        {
-
           this.array_lista.push(elemento);
           this.asignatura_propiedad= this.array_lista;
        }
@@ -89,22 +90,19 @@
                 }
 
             });
-            
-          //alert(JSON.stringify(class_asign));
+                    
           let datos_enviar=JSON.stringify(class_asign);
             $.ajax({
                  url:"/gestion_alumnos/public/Asignatura/store",
                  method:"POST",
-                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                 
+                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},                
                  dataType: "json",
                  processData: true,
                 data:{datos_enviar},
               
             })
                 .done(function(data)
-                {
-                                 
+                {                                
                     if($.trim(data.resultado)=="OK")
                     {
                        
@@ -117,24 +115,6 @@
         }
 function listar_asignaturas()
 {
-let row="";
-    $.ajax({url:"/gestion_alumnos/public/Asignatura",
-                    method:"GET",
-                data:{"_token":"{{ csrf_token() }}"},
-            success:function(data)
-            {
-                let object_data=JSON.parse(data);
-                console.log(data);
-                for(var d in object_data)
-                {
-                   // alert(object_data[d].nombre);
-                    row+="<tr> <td><input value=" + object_data[d].id + " class='checks_asig' id='checks_asig' type='checkbox' name='lista_checks[]'/> </td><td><a href=#>"+ object_data[d].nombre + "</a></td> </tr>";
-                }
-              
-                $("#tabla_asignaturas > tbody").append(row);
-            }
-
-            });
 }
 function asignar_modal(id)
 {
@@ -154,19 +134,60 @@ $("#modal").modal();
                 {
                   alert("ELIMINADO CON EXITO!!");
                   window.location.reload(true);
-
                 }
             }
-
             });
         }
    function editar(id)
    {
-   window.location.href="Alumnos/"+ id + "/edit";
+    window.location.href="Alumnos/"+ id + "/edit";
 
    }
-        </script>
-      
+      </script>    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+      <script>
+      new Vue({
+      el: "#app",
+      data () {
+    return {
+      lista_asignaturas: null
+    }
+  },
+      beforeCreate()
+        {                 
+        },
+       created()
+       {
+        this.evento_asign();
+       },
+
+      methods:{
+        evento_asign:function()
+        {
+          let row="";
+          axios.get('/gestion_alumnos/public/Asignatura', {
+                    params: {
+                      "_token": "{{ csrf_token() }}"
+                    }
+                
+              }).then(response => {
+                this.lista_asignaturas = response.data
+                console.log(this.lista_asignaturas);
+                let tabla_rows="";
+                for(var d in this.lista_asignaturas )
+                {                
+                  tabla_rows+="<tr> <td><input value=" + this.lista_asignaturas[d].id + " class='checks_asig' id='checks_asig' type='checkbox' name='lista_checks[]'/> </td><td><a href=#>"+ this.lista_asignaturas[d].nombre + "</a></td> </tr>";
+                }
+               
+                document.getElementById("table_body_asign").innerHTML=tabla_rows;                
+                }).catch(e => {
+                    console.log(e)
+                })                
+      }
+      }  
+    })   
+</script>
 </body>
 </html>
 

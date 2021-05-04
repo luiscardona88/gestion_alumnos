@@ -88,7 +88,7 @@
 </style>
 </head>
   <body>
-
+<div id="app">
 <div id="myModal" class="modal fade show" aria-modal="true" style="display: block;">
 	<div class="modal-dialog modal-login">
 		<div class="modal-content">
@@ -118,7 +118,7 @@
 		</div>
 	</div>
 </div>
-
+</div>
 <script>
 
 class UserLogin

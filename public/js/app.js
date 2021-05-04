@@ -3676,7 +3676,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       } // If this is a touch-enabled device we add extra
       // empty mouseover listeners to the body's immediate children;
       // only needed because of broken event delegation on iOS
-      // https://www.quirksmode.org/gestion_alumnos/archives/2014/02/mouse_event_bub.html
+      // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
 
 
       if ('ontouchstart' in document.documentElement && $__default['default'](parent).closest(SELECTOR_NAVBAR_NAV).length === 0) {
@@ -4995,7 +4995,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         $__default['default'](tip).addClass(this.config.customClass); // If this is a touch-enabled device we add extra
         // empty mouseover listeners to the body's immediate children;
         // only needed because of broken event delegation on iOS
-        // https://www.quirksmode.org/gestion_alumnos/archives/2014/02/mouse_event_bub.html
+        // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
 
         if ('ontouchstart' in document.documentElement) {
           $__default['default'](document.body).children().on('mouseover', null, $__default['default'].noop);
@@ -14596,7 +14596,7 @@ jQuery.extend( {
 				// Support: IE <=9 - 11 only
 				// elem.tabIndex doesn't always return the
 				// correct value when it hasn't been explicitly set
-				// https://web.archive.org/web/20141116233347/http://fluidproject.org/gestion_alumnos/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
+				// https://web.archive.org/web/20141116233347/http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
 				// Use proper attribute retrieval(#12072)
 				var tabindex = jQuery.find.attr( elem, "tabindex" );
 
@@ -17607,7 +17607,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
     rsEmoji
   ].join('|'), 'g');
 
-  /** Used to detect strings with [zero-width joiners or code points from the astral planes](http://eev.ee/gestion_alumnos/2015/09/12/dark-corners-of-unicode/). */
+  /** Used to detect strings with [zero-width joiners or code points from the astral planes](http://eev.ee/blog/2015/09/12/dark-corners-of-unicode/). */
   var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange  + rsComboRange + rsVarRange + ']');
 
   /** Used to detect strings that need a more robust regexp to match words. */
@@ -32158,7 +32158,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      */
     function template(string, options, guard) {
       // Based on John Resig's `tmpl` implementation
-      // (http://ejohn.org/gestion_alumnos/javascript-micro-templating/)
+      // (http://ejohn.org/blog/javascript-micro-templating/)
       // and Laura Doktorova's doT.js (https://github.com/olado/doT).
       var settings = lodash.templateSettings;
 
@@ -37917,7 +37917,7 @@ function toObject (arr) {
 /**
  * Perform no operation.
  * Stubbing args to make Flow happy without leaving useless transpiled code
- * with ...rest (https://flow.org/gestion_alumnos/2017/05/07/Strict-Function-Call-Arity/).
+ * with ...rest (https://flow.org/blog/2017/05/07/Strict-Function-Call-Arity/).
  */
 function noop (a, b, c) {}
 

@@ -25,6 +25,8 @@ Route::get('/Menu/index/','Menu@index');
 
 Route::post('/Alumnos/store2','Alumnos@store2');
 Route::resource("Alumnos","Alumnos");
+Route::get("Asignatura/muestra_horarios","Asignatura@muestra_horarios");
 Route::resource("Asignatura","Asignatura");
 Route::resource("Login","Login");
 Route::post('/Asignatura/store','Asignatura@store');
+

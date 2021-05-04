@@ -1,18 +1,22 @@
 <template>
     <div class="container-fluid">
+      <table class="table table-bordered table-striped table-dark">
+        <tr v-for="item in lista_horarios">
+         <td>{{item.fecha_inicio}} </td>
+         <td>{{item.fecha_fin}}  </td>
+         <td> >{{item.fecha_registro}}</td>
+          </tr>
+        </table>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#">Inicio</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-
-     <li class="nav-item active" v-for="(value, key) in lista_menu">
+     <li class="nav-item active" v-for="(value, key) in lista_horarios">
         <a class="nav-link"  :href="value" >{{ key }}<span class="sr-only"></span></a>
       </li>
-
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search">
@@ -24,21 +28,23 @@
 </template>
 
 <script>
-    export default {
-      
-        beforeCreate()
+    export default {     
+       methods:{
+        muestra_horarios:function(id)
         {
-            fetch("http://localhost/gestion_alumnos/public/Menu/index/")
+            fetch("http://localhost/blog/public/Asignatura/muestra_horarios/?" + id_asignacion)
         .then(response=>response.json())
-          .then(json=>this.lista_menu=json);        
-        
+          .then(json=>this.lista_horarios=json);    
+        }
 
-        },
+       },
         mounted() 
         {
-            console.log('Component mounted.')
-            //alert("OK");
-            console.log(this.lista_menu);
+          this.$root.$on('component1', () => {
+            // your code goes here
+            this.muestra_horarios();
+        });
+        
         }
         ,
         created() 
@@ -49,11 +55,9 @@
     ,
       data: function () {
           return {
-            lista_menu:""
+            lista_horarios:""
         
         };
       },
-
-
     };
 </script>

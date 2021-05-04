@@ -3,6 +3,7 @@
         @extends('master')
     </head>
 <body>
+<div id="app">
 @if (session("status"))
     <div class="alert alert-success">
           CREADO EXITOSAMENTE
@@ -42,8 +43,6 @@
     </tfoot>
 </tbody>
 </table>
-<script>
-
-
+</div>
 </form>
 </body>
