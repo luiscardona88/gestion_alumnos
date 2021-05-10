@@ -7,7 +7,7 @@ use App\Models\Alumnos_model;
 use App\Models\Registro_model;
 use App\Http\Requests\AlumnosRequest;
 use App\Models\asignaturas_model;
-
+use App\Models\Alumnos_files_model;
 
 
 use DB;
@@ -29,11 +29,13 @@ class Alumnos extends Controller
         
         });
      }
+
+    
     public function index()
     {
 
         
-         $datos=Alumnos_model::with("asignaturas")->get();
+         $datos=Alumnos_model::with(["asignaturas","files"])->get();
          $asignatura1 = new asignaturas_model();
          $asignatura1->nombre = "ItSolutionStuff.com";
          $asignatura1->fecha_registro=date("Y-m-d");
@@ -44,7 +46,7 @@ class Alumnos extends Controller
        
          return view("Alumnos.index",["datos"=>$datos]);
     }
-        
+  
 
     /**
      * Show the form for creating a new resource.
@@ -52,6 +54,23 @@ class Alumnos extends Controller
      * @return \Illuminate\Http\Response
      */
 
+     public function subirFile(Request $request)
+     {
+       
+       try
+       {
+        $id_alumno=$request->id_alumno;
+        $path=$request->imagen->store("public");    
+        Alumnos_files_model::create(["id_alumno"=> $id_alumno,"ruta_path"=>$path,"status"=>0]);
+        return "Subido con exito";
+       }
+       catch(\Exception $ex)
+       {
+         echo $ex->getMessage();
+       }
+   
+
+     }
      public function asignar_asignaturas()
      {
         $datos=Alumnos_model::all();
@@ -148,5 +167,16 @@ class Alumnos extends Controller
         $id=$alumnos_object->delete();
         echo $id;
         //
+    }
+
+    public function listar_imagenes()
+    {
+
+        $data=Alumnos_model::findOrfail(21);
+        dd($data->files);
+       //$data=Alumnos_files_model::find("1");
+       // dd($data->alumnos());
+
+
     }
 }

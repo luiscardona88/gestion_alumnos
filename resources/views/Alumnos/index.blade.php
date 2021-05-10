@@ -12,18 +12,29 @@
 <th> </th>
 <th> </th>
 <th> Asignaturas</th>
+<th> Documentos</th>
     </thead>
     @foreach ($datos as $item)
     <tr> 
         <td> {{$item->id}} </td>
         <td> {{$item->nombre}} </td> 
         <td> <button  onclick="eliminar({{$item->id}})" class="btn btn-danger btn-sm">Eliminar </button> </td> 
-        <td> <button onclick="editar({{$item->id}})" class="btn btn-dark btn-sm text-white">Actualizar </button> </td> 
+        <td> <button onclick="editar({{$item->id}})" class="btn btn-dark btn-sm text-white">Actualizar </button> </td>           
+        <td> 
+            @foreach ($item->asignaturas as $asign)
+                {{$asign->nombre.","}}
+            @endforeach       
+         </td> 
          <td> 
-           @foreach ($item->asignaturas as $asign)
-               {{$asign->nombre.","}}
-           @endforeach       
-        </td>     
+            @foreach ($item->files as $file)
+            @php           
+            if($file->ruta_path!=""):
+               $doc= explode("/",$file->ruta_path,);            
+         endif;
+        @endphp
+            <a href="http://localhost/gestion_alumnos/storage/app/public/{{$doc[1]}}">file </a>
+        @endforeach  
+        </td>
     </tr>
   @endforeach
 </table>
@@ -49,7 +60,6 @@
         }
    function editar(id)
    {
-
    window.location.href="Alumnos/"+ id + "/edit";
 
    }

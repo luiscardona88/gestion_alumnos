@@ -20,6 +20,13 @@ class Alumnos_model extends Model
 return $this->morphToMany(asignaturas_model::class,"taggables", null, 'tag_id');
 
 }
+
+public function files()
+{
+
+    return $this->hasMany(Alumnos_files_model::class,"id_alumno");
+}
+
 }
 
 

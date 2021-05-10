@@ -39,11 +39,38 @@
           </div>
         </div>
     </div>
-    <a href="Alumnos/create"> Nuevo</a>
+
+    <div class="modal" tabindex="-1" role="dialog" id="modal_upload">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Asignaturas</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="http://localhost/gestion_alumnos/public/Alumnos/subirFile" enctype="multipart/form-data" class="form form-inline">
+              <input type="hidden" value="id_alumno" name="id_alumno" id="id_alumno"/>
+              <input type="hidden" value="{{ csrf_token() }}" name="_token"/>
+              Subir Tarea<input type="file" name="imagen" id="imagen"/>
+              <br>
+              <br>
+              <button type="submit" class="btn btn-success">Subir </button>
+              </form>
+          </div>
+          <div class="modal-footer">          
+          </div>
+        </div>
+      </div>
+  </div>
+
+<a href="Alumnos/create"> Nuevo</a>
 <table border="1" class="table table-bordered table-striped">
     <thead>
 <th>ID </th>
 <th> NOMBRE</th>
+<th> </th>
 <th> </th>
 <th> </th>
 <th> </th>
@@ -54,7 +81,8 @@
         <td> {{$item->nombre}} </td> 
         <td> <button  disabled  onclick="eliminar({{$item->id}})" class="btn btn-danger btn-sm">Eliminar </button> </td> 
         <td> <button  disabled onclick="editar({{$item->id}})" class="btn btn-dark btn-sm text-white">Actualizar </button> </td> 
-         <td> <button  onclick="asignar_modal({{$item->id}})" class="btn btn-dark btn-sm"> Asignar Asignaturas</button> </td>     
+         <td> <button  onclick="asignar_modal({{$item->id}})" class="btn btn-dark btn-sm"> Asignar Asignaturas</button> </td>
+         <td> <button  onclick="subir_file({{$item->id}})" class="btn btn-primary btn-sm"> Subir Tarea</button> </td>    
     </tr>
   @endforeach
 </table>
@@ -115,6 +143,13 @@
         }
 function listar_asignaturas()
 {
+}
+
+function subir_file(id)
+{
+$("#modal_upload").modal();
+$("#id_alumno").val(id);
+
 }
 function asignar_modal(id)
 {

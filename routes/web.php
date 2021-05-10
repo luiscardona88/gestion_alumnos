@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::get("/Alumnos/listar_imagenes/",'Alumnos@listar_imagenes');
 Route::get('/Login/validaLogin/','Login@validaLogin');
 Route::get('/Alumnos/update2/{id}','Alumnos@update2');
 Route::get('/Alumnos/asignar_asignaturas/','Alumnos@asignar_asignaturas');
@@ -29,4 +29,5 @@ Route::get("Asignatura/muestra_horarios","Asignatura@muestra_horarios");
 Route::resource("Asignatura","Asignatura");
 Route::resource("Login","Login");
 Route::post('/Asignatura/store','Asignatura@store');
+Route::post("/Alumnos/subirFile",'Alumnos@subirFile');
 
