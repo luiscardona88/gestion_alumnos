@@ -3,12 +3,10 @@
         @extends('master')
     </head>
 <body>
-
 <form method="POST" action="http://localhost/blog/public/Alumnos/{{$datos->id}}" id="form">
     <input type="hidden" name="id" value="{{$datos->id}}">
     {{ method_field('PUT') }}
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    
 <table border=1 class="table table-bordered table-striped">
 <tr>
 <th>nombre </th>
@@ -30,8 +28,6 @@
         <button type="submit" class="btn btn-danger" > Actualizar</button> 
     </div>
     </div>
-
-        
     </td>
      </tr>
     </tfoot>
@@ -41,34 +37,9 @@
 $(document).ready(function()
 {
 
-
-
 });
 
     </script>
-<!--
-<script>
-
-function actualizar(id)
-   {
-
-alert("el id es" + id);
-
-        $.ajax({url:"/Alumnos/1/update",
-                method:"PUT",
-            data:{"_token":"{{ csrf_token() }}"},
-        success:function(data)
-        {
-        console.log(data);
-        }
-
-        })
-
-
-   }
-    </script>!-->
-
-
 </form>
 </body>
 

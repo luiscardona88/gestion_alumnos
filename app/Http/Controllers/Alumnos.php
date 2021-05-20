@@ -8,6 +8,7 @@ use App\Models\Registro_model;
 use App\Http\Requests\AlumnosRequest;
 use App\Models\asignaturas_model;
 use App\Models\Alumnos_files_model;
+use Illuminate\Support\Facades\Mail;
 
 
 use DB;
@@ -28,9 +29,33 @@ class Alumnos extends Controller
         //echo "<code>" . $query->time."</code/>";
         
         });
+
+        
      }
 
-    
+    public function sendMail($data=array())
+    {
+
+        
+        Mail::send('emails.email', $data, function ($message) {
+            $message->from('luiscardona-3f4137@inbox.mailtrap.io', 'John Doe');
+            $message->sender('luiscardona-3f4137@inbox.mailtrap.io', 'John Doe');
+            $message->to('luiscardona-3f4137@inbox.mailtrap.io', 'John Doe');
+            $message->subject('Gracias por escribirnos');
+            $message->priority(3);
+        });
+
+        dd(Mail::failures());
+
+        if(Mail::failures())
+        {
+            return "Mensaje no enviado";
+        }
+        else
+        {
+            return "Mensaje enviado";
+        }
+    }
     public function index()
     {
 
@@ -43,7 +68,10 @@ class Alumnos extends Controller
          $asignatura2 = new asignaturas_model();
          $asignatura2->nombre = "ItSolutionStuff.com 2";
          $asignatura2->fecha_registro=date("Y-m-d");
-       
+
+         $data=array();
+         $data["title"]="datos de prueba";
+         $this->sendMail($data);
          return view("Alumnos.index",["datos"=>$datos]);
     }
   
@@ -178,5 +206,16 @@ class Alumnos extends Controller
        // dd($data->alumnos());
 
 
+    }
+    public function image_download(PostImage $imagen)
+    {
+       Storage::disk("local")->download($imagen->imagen);
+    }
+
+    public function image_delete(PostImage $imagen)
+    {
+        $image->delete();
+        Storage::disk("local")->delete($imagen->imagen);
+        return back()->with("estatus","Imagen Eliminada con exito");
     }
 }

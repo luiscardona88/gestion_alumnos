@@ -50,7 +50,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form method="POST" action="http://localhost/gestion_alumnos/public/Alumnos/subirFile" enctype="multipart/form-data" class="form form-inline">
+            <form method="POST" action="{{route('subirFile')}}" enctype="multipart/form-data" class="form form-inline">
               <input type="hidden" value="id_alumno" name="id_alumno" id="id_alumno"/>
               <input type="hidden" value="{{ csrf_token() }}" name="_token"/>
               Subir Tarea<input type="file" name="imagen" id="imagen"/>
@@ -121,7 +121,7 @@
                     
           let datos_enviar=JSON.stringify(class_asign);
             $.ajax({
-                 url:"/gestion_alumnos/public/Asignatura/store",
+                 url:"{{route('store_asignatura')}}",
                  method:"POST",
                  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},                
                  dataType: "json",

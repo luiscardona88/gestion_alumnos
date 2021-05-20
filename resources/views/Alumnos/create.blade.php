@@ -9,7 +9,7 @@
           CREADO EXITOSAMENTE
     </div>
 @endif
-<form method="POST" action="http://localhost/blog/public/Alumnos/store2" id="form">
+<form method="POST" action="{{route('guardar_alumnos')}}" id="form">
 <!--{{ method_field('PUT') }}!-->
     <input type="hidden" name="id" value="">
  
@@ -36,8 +36,6 @@
         <button type="submit" class="btn btn-danger" > NUEVO</button> 
     </div>
     </div>
-
-        
     </td>
      </tr>
     </tfoot>
